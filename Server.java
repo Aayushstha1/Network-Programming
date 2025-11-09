@@ -10,7 +10,7 @@ public class Server {
             System.out.println("Server is running...");
 
             Socket socket = serverSocket.accept(); 
-            System.out.println("Client connected: " + socket.getInetAddress());
+            System.out.println("Client connected: " );
 
             OutputStream output = socket.getOutputStream();
             PrintWriter writer = new PrintWriter(output, true);
