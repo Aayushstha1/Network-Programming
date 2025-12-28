@@ -1,22 +1,29 @@
 import java.io.BufferedReader;
 import java.io.InputStream;
-import java.net.Socket;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class SocketForClient {
 
-    public static void main(String[] args) {        
+    public static void main(String[] args) {
         try {
-            Socket socket = new Socket("https://www.w3schools.com/html/html_intro.asp", 5000);
-            socket.setSoTimeout(3000);
-            InputStream input = socket.getInputStream();
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-            
+            URL url = new URL("https://www.w3schools.com/html/html_intro.asp");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setConnectTimeout(3000);
+            conn.setReadTimeout(5000);
+            conn.setRequestMethod("GET");
+            conn.connect();
 
-            socket.close();
+            InputStream input = conn.getInputStream();
+            BufferedReader reader = new BufferedReader(new java.io.InputStreamReader(input));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+            reader.close();
+            conn.disconnect();
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-        
     }
 }
