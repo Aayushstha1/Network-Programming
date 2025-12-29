@@ -1,0 +1,23 @@
+import java.net.*;
+
+public class Find1024Port {
+
+    public static void main(String[] args) {
+        String host ="";
+        if ( args.length > 0) {
+            host=args[0];
+        }
+        else{host="localhost";}
+        for(int i=1; i<=1024; i++){
+            Socket socket = new Socket (host, i);
+            try {
+                System.out.println("socket:" + socket);
+                System.out.println("host " + host);
+                System.out.println("port " + i "is open");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+}
