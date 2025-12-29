@@ -5,26 +5,32 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server{
-    public static void main(String[] args){
-        try{
-            ServerSocket Ssocket=new ServerSocket(5000);
+public class Server {
+    public static void main(String[] args) {
+        try {
+            ServerSocket Ssocket = new ServerSocket(5000);
             System.out.println("Server is running... waiting for client connection");
-            Socket socket =Ssocket.accept();
+            Socket socket = Ssocket.accept();
             System.out.println("Clinet is connected");
-            OutputStream output=socket.getOutputStream();
-            PrintWriter writer=new PrintWriter(output,true);
+            OutputStream output = socket.getOutputStream();
+            PrintWriter writer = new PrintWriter(output, true);
             writer.println("Hello Hemnarayan");
-            BufferedReader reader=new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String clientMessage=reader.readLine();
-            System.out.println("Message from client: "+clientMessage);
-            writer.close();
-            socket.close();
-            Ssocket.close();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+            String clientMessage = "", serverMsg = "";
+            while (true) {
+                clientMessage = reader.readLine();
+                if (clientMessage == null || clientMessage.equalsIgnoreCase("exit")) {
+                    System.out.println("Client is disconnected");
+                    break;
+                }
+                System.out.println("Message from client: " + clientMessage);
+                writer.println("server msg:" + br.readLine());
+                serverMsg = br.readLine();
+                writer.println(serverMsg);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch(Exception ex){
-            ex.printStackTrace();
-        }
-       
     }
 }
