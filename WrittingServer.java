@@ -6,6 +6,7 @@ public class WrittingServer {
             Socket socket=new Socket("localhost",5000);
             OutputStream os=socket.getOutputStream();
             PrintWriter pr=new PrintWriter(os,true);
+            
            
             BufferedReader br=new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedReader reader=new BufferedReader(new InputStreamReader(System.in));

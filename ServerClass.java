@@ -12,6 +12,12 @@ public class ServerClass{
             ServerSocket Ssocket=new ServerSocket(5000);
             System.out.println("Server is running... waiting for client connection");
             Socket socket =Ssocket.accept();
+            socket.setTcpNoDelay(true);
+            socket.setSendBufferSize(0);
+            socket.setSoLinger(false, 0);
+
+
+
             System.out.println("Clinet is connected");
             OutputStream output=socket.getOutputStream();
             PrintWriter writer=new PrintWriter(output,true);
@@ -26,6 +32,7 @@ public class ServerClass{
                     System.out.println("Client disconnected");
                     break;
                 }
+                System.out.println(socket.getSendBufferSize());
                 System.out.println("Message from client: "+clientMessage);
                 System.out.println("server msg : ");
                 serverMsg=br.readLine();
