@@ -18,7 +18,13 @@ public class SendingUDPDta {
             }
             // sending data 
             buffer = "Hello from sendingFil".getBytes();
-        }
+            DatagramPacket send = new DatagramPacket(buffer, buffer.length, address, 12345);
+            socket.send(send);
+            System.out.println("msg of recived "+ receive.getLength());
+            inputStream.close();
+        } catch(Exception e){
+            System.out.println(ex);
     }
     
+}
 }
